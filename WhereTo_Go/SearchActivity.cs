@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Facebook;
 using Xamarin.Facebook;
+using Android.Preferences;
 
 namespace WhereTo_Go
 {
@@ -21,7 +22,7 @@ namespace WhereTo_Go
 		TextView loading;
 		ProgressBar pBar;
 		public string userToken;
-
+		ISharedPreferences prefs;
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
@@ -35,7 +36,8 @@ namespace WhereTo_Go
 		}
 		protected override void OnStart()
 		{
-			string token = Global.Token;
+			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+			string token = prefs.GetString("token","");
 			GetPlacesList (token,pBar,loading);
 			base.OnStart ();
 		}

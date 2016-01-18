@@ -53,8 +53,6 @@ namespace WhereTo_Go
 			{
 				
 				userToken = e.Account.Properties["access_token"];
-				AccountStore.Create(this).Save(e.Account, "Facebook");
-				Global.accounts= AccountStore.Create (this).FindAccountsForService ("Facebook").ToList();
 				ISharedPreferencesEditor editor = prefs.Edit();
 				editor.PutString ("token", userToken);
 				editor.Apply ();

@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="WhereTo_Go\WhereTo_Go.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.MyAndroidPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhereTo_Go\EventListActivity.cs">
+    <Files>
+      <File FileName="WhereTo_Go\EventListActivity.cs" Line="43" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\resourcecache\5BA0004AD3114D5A1E258930C16C9318\res\layout\abc_dialog_title_material.xml" line="36" column="46" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.WhereTo__Go AndroidDesignerPreferredDevice="Nexus 4" />
+</Properties>

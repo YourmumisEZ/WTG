@@ -1,13 +1,18 @@
 ﻿<Properties StartupItem="WhereTo_Go\WhereTo_Go.csproj" RefactoringSettings.EnableRefactorings="True">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.MyAndroidPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WhereTo_Go\EventListActivity.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.00093d52731d4f" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhereTo_Go\Models\Global.cs">
     <Files>
-      <File FileName="WhereTo_Go\EventListActivity.cs" Line="43" Column="41" />
+      <File FileName="WhereTo_Go\Models\Global.cs" Line="71" Column="1" />
+      <File FileName="WhereTo_Go\SearchActivity.cs" Line="49" Column="42" />
+      <File FileName="WhereTo_Go\Models\Events.cs" Line="62" Column="1" />
+      <File FileName="WhereTo_Go\MainActivity.cs" Line="34" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\resourcecache\5BA0004AD3114D5A1E258930C16C9318\res\layout\abc_dialog_title_material.xml" line="36" column="46" />
+      <Breakpoint file="D:\VS2015Projects\WhereTo_Go\WhereTo_Go\MainActivity.cs" line="53" column="5" />
+      <Breakpoint file="D:\VS2015Projects\WhereTo_Go\WhereTo_Go\MainActivity.cs" line="30" column="7" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

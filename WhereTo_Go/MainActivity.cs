@@ -23,7 +23,6 @@ namespace WhereTo_Go
 			SetContentView(Resource.Layout.Main);
 
 			Button loginButton = FindViewById<Button>(Resource.Id.loginButton);
-			Button searchButton = FindViewById<Button>(Resource.Id.search);
  			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 			loginButton.Click += (object sender, EventArgs e) =>
 			{
@@ -39,12 +38,7 @@ namespace WhereTo_Go
 						StartActivity(auth.GetUI(this));
 					}
 			};
-
-			searchButton.Click += (object sender, EventArgs e) =>
-			{
-				Intent intent= new Intent(this,typeof(SearchActivity));
-				StartActivityForResult(intent, 0);
-			};
+		
 		}
 
 		void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)

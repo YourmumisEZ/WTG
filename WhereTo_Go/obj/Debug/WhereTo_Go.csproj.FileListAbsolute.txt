@@ -26,3 +26,5 @@ D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\uploadflags.txt
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\WhereTo_Go.csprojResolveAssemblyReference.cache
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout\eventslist.xml
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout\rowview.xml
+D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\WhereTo_Go.dll.mdb
+D:\VS2015Projects\WhereTo_Go\WhereTo_Go\bin\Debug\WhereTo_Go.dll.mdb

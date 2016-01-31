@@ -16,7 +16,7 @@ using Android.Preferences;
 
 namespace WhereTo_Go
 {
-	[Activity (Label = "WTG")]			
+	[Activity (Label = "WTG", ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]			
 	public class SearchActivity : Activity
 	{
 		TextView loading;
@@ -32,14 +32,9 @@ namespace WhereTo_Go
 			pBar.Visibility = ViewStates.Visible;
 			loading.Visibility = ViewStates.Visible;
 			loading.Text="Loading events";
-
-		}
-		protected override void OnStart()
-		{
 			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 			string token = prefs.GetString("token","");
 			GetPlacesList (token,pBar,loading);
-			base.OnStart ();
 		}
 		private void GetPlacesList(string token,ProgressBar pBar, TextView loading)
 		{

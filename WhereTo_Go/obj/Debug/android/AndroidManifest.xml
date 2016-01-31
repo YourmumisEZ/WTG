@@ -10,7 +10,7 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:label="WTG" android:name="md58a5d636f0e1f32c4a2185dee03df0983.SearchActivity" />
+    <activity android:configChanges="orientation|screenSize" android:label="WTG" android:name="md58a5d636f0e1f32c4a2185dee03df0983.SearchActivity" />
     <activity android:label="WTG" android:name="md58a5d636f0e1f32c4a2185dee03df0983.EventListActivity" />
     <activity android:label="Web Authenticator" android:name="md550f8a10a740eb4fb6376baab8337ce22.FormAuthenticatorActivity" />
     <activity android:label="Web Authenticator" android:name="md550f8a10a740eb4fb6376baab8337ce22.WebAuthenticatorActivity" />
@@ -23,4 +23,6 @@
       </intent-filter>
     </receiver>
   </application>
+  <activity android:name="SearchActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
+  <activity android:name="EventListActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
 </manifest>

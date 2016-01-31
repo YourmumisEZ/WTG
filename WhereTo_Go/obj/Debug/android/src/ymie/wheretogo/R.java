@@ -1768,6 +1768,7 @@ containing a value of this type.
         public static final int bottom=0x7f0c0027;
         public static final int box_count=0x7f0c0024;
         public static final int button=0x7f0c0025;
+        public static final int button1=0x7f0c0068;
         public static final int buttonPanel=0x7f0c0045;
         public static final int cancel_action=0x7f0c006b;
         public static final int center=0x7f0c002a;
@@ -1825,7 +1826,6 @@ containing a value of this type.
         public static final int right=0x7f0c002c;
         public static final int screen=0x7f0c0014;
         public static final int scrollView=0x7f0c0041;
-        public static final int search=0x7f0c0068;
         public static final int searchPB=0x7f0c007a;
         public static final int search_badge=0x7f0c0053;
         public static final int search_bar=0x7f0c0052;

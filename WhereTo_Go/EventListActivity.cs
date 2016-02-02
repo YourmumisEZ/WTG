@@ -18,6 +18,7 @@ namespace WhereTo_Go
 		List<Events> orderdEvents = new List<Events> ();
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
+			
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.EventsList);
 			SetUpLabel();

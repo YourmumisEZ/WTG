@@ -8,22 +8,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Facebook;
 using Android.Preferences;
+using Android.Locations;
 
 namespace WhereTo_Go
 {
 	[Activity(Label = "WTG", MainLauncher = true)]
-	public class MainActivity : Activity
+	public class MainActivity : Activity,ILocationListener
 	{
 		private string userToken; 
 		private OAuth2Authenticator auth;
 		ISharedPreferences prefs;
+		LocationManager _locationManager;
+		string _locationProvider;
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
 			Button loginButton = FindViewById<Button>(Resource.Id.loginButton);
+			Button filteButton = FindViewById<Button> (Resource.Id.button1);
  			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+			_locationManager = GetSystemService (Context.LocationService) as LocationManager;
+			filteButton.Click += (object sender, EventArgs e) =>
+			{
+					Intent intent= new Intent(this,typeof(FilterActivity));
+					StartActivityForResult(intent, 0);
+			};
+
 			loginButton.Click += (object sender, EventArgs e) =>
 			{
 				if(!string.IsNullOrEmpty( prefs.GetString("token","")))
@@ -54,6 +65,45 @@ namespace WhereTo_Go
 				StartActivityForResult(intent, 0);
 
 			}
+		}
+		protected override void OnResume ()
+		{
+			base.OnResume ();
+			string Provider = LocationManager.GpsProvider;
+
+			if(_locationManager.IsProviderEnabled(Provider))
+			{
+				_locationManager.RequestLocationUpdates (Provider, 2000, 0, this);
+				Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
+				Global.GPSCoords = thisCoords;
+
+			}
+
+		}
+
+
+		public void OnLocationChanged (Location location)
+		{
+			string Provider = LocationManager.GpsProvider;
+			Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
+			Global.GPSCoords = thisCoords;
+		}
+		public void OnProviderDisabled (string provider)
+		{
+	
+		}
+		public void OnProviderEnabled (string provider)
+		{
+			
+		}
+		public void OnStatusChanged (string provider, Availability status, Bundle extras)
+		{
+			
+		}
+		protected override void OnPause ()
+		{
+			base.OnPause ();
+			_locationManager.RemoveUpdates (this);
 		}
 	
 	}

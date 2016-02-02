@@ -17,6 +17,12 @@ namespace WhereTo_Go
 			
 
 		}
+		public Coords (string longitude, string latitude)
+		{
+			Longitude=longitude;
+			Latitutde=latitude;
+
+		}
 	}
 }
 

@@ -13,6 +13,7 @@ using Android.Widget;
 using Facebook;
 using Xamarin.Facebook;
 using Android.Preferences;
+using Android.Locations;
 
 namespace WhereTo_Go
 {
@@ -23,8 +24,10 @@ namespace WhereTo_Go
 		ProgressBar pBar;
 		public string userToken;
 		ISharedPreferences prefs;
+
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
+			
 			base.OnCreate (savedInstanceState);
 			SetContentView(Resource.Layout.Search);
 			loading = FindViewById<TextView>(Resource.Id.textView1);
@@ -34,13 +37,14 @@ namespace WhereTo_Go
 			loading.Text="Loading events";
 			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 			string token = prefs.GetString("token","");
-			GetPlacesList (token,pBar,loading);
+			string localizationSetting = prefs.GetString("localization","");
+			GetPlacesList (token,pBar,loading,localizationSetting);
 		}
-		private void GetPlacesList(string token,ProgressBar pBar, TextView loading)
+		private void GetPlacesList(string token,ProgressBar pBar, TextView loading,string localizationSetting)
 		{
 			List<Events> todaysEvents = new List<Events> ();
 			string locationId = Global.GetLocationID (token);
-			Coords coords = Global.GetLongitudeAndLatitude (token, locationId);
+			Coords coords = Global.GetLongitudeAndLatitude (token, locationId,localizationSetting);
 			JsonObject allPlaces = Global.GetAllPlaces (token, coords);
 			List<string> allPlacesIds=Global.QueryParser (allPlaces);
 			ThreadPool.QueueUserWorkItem (o => GetEventList (token, allPlacesIds,pBar,loading));
@@ -54,7 +58,7 @@ namespace WhereTo_Go
 			string dateNow = string.Format ("{0}-{1}-{2}",now.Year,now.Month,now.Day);
 			string dateTomorrow = string.Format ("{0}-{1}-{2}",tomorrow.Year,tomorrow.Month,tomorrow.Day);
 			List<Events> todaysEvents = new List<Events> ();
-			FacebookClient fb= new FacebookClient(token);
+			FacebookClient fb= new FacebookClient(token);	
 			foreach (var item in allPlacesIds) 
 			{
 				RunOnUiThread (() =>loading.Text = string.Format ("Loading {0} possible events out of {1}",count,allPlacesIds.Count));
@@ -87,6 +91,8 @@ namespace WhereTo_Go
 			Intent intent= new Intent(this,typeof(EventListActivity));
 			StartActivity(intent);
 		}
+
+
 	}
 }
 

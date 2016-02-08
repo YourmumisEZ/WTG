@@ -58,11 +58,9 @@ namespace WhereTo_Go
 		}
 		public static string GetLocationID(string token)
 		{
-			
 				FacebookClient fb = new FacebookClient (token);
 				JsonObject result = (JsonObject)fb.Get ("me?fields=location", null);
 				return (((JsonObject)result ["location"]) ["id"]).ToString (); 
-
 
 		}
 

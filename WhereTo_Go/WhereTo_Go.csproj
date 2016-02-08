@@ -86,22 +86,24 @@
     <None Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\layout\Search.axml" />
-    <AndroidResource Include="Resources\layout\EventsList.axml" />
-    <AndroidResource Include="Resources\layout\RowView.axml" />
-    <AndroidResource Include="Resources\layout\Filter.axml" />
+    <AndroidResource Include="Resources\layout-land\Main.axml" />
+    <AndroidResource Include="Resources\layout-port\Main.axml" />
+    <AndroidResource Include="Resources\layout-port\Search.axml" />
+    <AndroidResource Include="Resources\layout-port\EventsList.axml" />
+    <AndroidResource Include="Resources\layout-port\RowView.axml" />
+    <AndroidResource Include="Resources\layout-port\Filter.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
     <Folder Include="Models\" />
     <Folder Include="Models\Helpers\" />
+    <Folder Include="Resources\layout-land\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets')" />

@@ -19,7 +19,7 @@ namespace WhereTo_Go
 		private OAuth2Authenticator auth;
 		ISharedPreferences prefs;
 		LocationManager _locationManager;
-		string _locationProvider;
+		IList<string> acceptableLocationProviders;
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
@@ -29,6 +29,11 @@ namespace WhereTo_Go
 			Button filteButton = FindViewById<Button> (Resource.Id.button1);
  			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 			_locationManager = GetSystemService (Context.LocationService) as LocationManager;
+			Criteria criteriaForLocationService = new Criteria
+			{
+				Accuracy = Accuracy.Fine
+			};
+		    acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
 			filteButton.Click += (object sender, EventArgs e) =>
 			{
 					Intent intent= new Intent(this,typeof(FilterActivity));
@@ -69,7 +74,7 @@ namespace WhereTo_Go
 		protected override void OnResume ()
 		{
 			base.OnResume ();
-			string Provider = LocationManager.GpsProvider;
+			string Provider = acceptableLocationProviders.First();
 
 			if(_locationManager.IsProviderEnabled(Provider))
 			{
@@ -84,7 +89,7 @@ namespace WhereTo_Go
 
 		public void OnLocationChanged (Location location)
 		{
-			string Provider = LocationManager.GpsProvider;
+			string Provider = acceptableLocationProviders.First();
 			Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
 			Global.GPSCoords = thisCoords;
 		}

@@ -29,36 +29,41 @@ namespace WhereTo_Go
 		{
 			try
 			{
-			base.OnCreate (savedInstanceState);
-			SetContentView(Resource.Layout.Search);
-			loading = FindViewById<TextView>(Resource.Id.textView1);
-			pBar = FindViewById<ProgressBar>(Resource.Id.searchPB);	
-			pBar.Visibility = ViewStates.Visible;
-			loading.Visibility = ViewStates.Visible;
-			loading.Text="Loading events";
-			prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-			string token = prefs.GetString("token","");
-			localizationSetting = prefs.GetString("localization","");
-			if (localizationSetting == "gps" && Global.GPSCoords == null) {
-				AlertDialog.Builder alert = new AlertDialog.Builder (this);
-				alert.SetTitle ("GPS error");
-				alert.SetMessage ("Turn gps on");
-				alert.SetPositiveButton ("Ok", (senderAlert, args) => {
-					Intent intent = new Intent (this, typeof(MainActivity));
-					StartActivityForResult (intent, 0);
-				});
-				Dialog dialog = alert.Create ();
-				dialog.Show ();
-			} else 
+				base.OnCreate (savedInstanceState);
+				SetContentView(Resource.Layout.Search);
+				loading = FindViewById<TextView>(Resource.Id.textView1);
+				pBar = FindViewById<ProgressBar>(Resource.Id.searchPB);	
+				pBar.Visibility = ViewStates.Visible;
+				loading.Visibility = ViewStates.Visible;
+				loading.Text="Loading events";
+				prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+				string token = prefs.GetString("token","");
+				localizationSetting = prefs.GetString("localization","");
+				if (localizationSetting == "gps" && Global.GPSCoords == null) 
+					{
+						AlertDialog.Builder alert = new AlertDialog.Builder (this);
+						alert.SetTitle ("GPS error");
+						alert.SetMessage ("Turn gps on");
+						alert.SetPositiveButton ("Ok", (senderAlert, args) => 
+							{
+								Intent intent = new Intent (this, typeof(MainActivity));
+								StartActivityForResult (intent, 0);
+							}
+						);
+					Dialog dialog = alert.Create ();
+					dialog.Show ();
+					} 
+					else 
+					{
+						GetPlacesList (token,localizationSetting);
+					}
+			}
+			catch(Exception ex)
 			{
-				GetPlacesList (token,pBar,loading,localizationSetting);
-			}
-			}
-			catch(Exception ex){
 				throw ex;
 			}
 		}
-		private void GetPlacesList(string token,ProgressBar pBar, TextView loading,string localizationSetting)
+		private void GetPlacesList(string token,string localizationSetting)
 		{
 			try
 			{
@@ -83,48 +88,6 @@ namespace WhereTo_Go
 				throw ex;
 			}
 		}
-
-		public void GetEventList(string token,List<string> allPlacesIds,ProgressBar pBar,TextView loading)
-		{
-			DateTime now = DateTime.Now;
-			DateTime tomorrow = DateTime.Now.AddDays(1);
-			int count = 0;
-			string dateNow = string.Format ("{0}-{1}-{2}",now.Year,now.Month,now.Day);
-			string dateTomorrow = string.Format ("{0}-{1}-{2}",tomorrow.Year,tomorrow.Month,tomorrow.Day);
-			List<Events> todaysEvents = new List<Events> ();
-			FacebookClient fb= new FacebookClient(token);	
-			foreach (var item in allPlacesIds) 
-			{
-				RunOnUiThread (() =>loading.Text = string.Format ("Loading {0} possible events out of {1}",count,allPlacesIds.Count));
-				string query = string.Format ("{0}?&fields=id,name,events.fields(id,name,description,start_time,attending_count,declined_count,maybe_count,noreply_count).since({1}).until({2})", item,dateNow,dateTomorrow);
-				JsonObject result=(JsonObject)fb.Get (query, null);
-				try
-				{
-					JsonArray allEvents= (JsonArray)((JsonObject) result ["events"])["data"];
-
-					foreach (var events in allEvents)
-					{
-						Events theEvent= new Events(((JsonObject)events) ["id"].ToString(),
-										           ((JsonObject)events) ["name"].ToString(),
-												   ((JsonObject)events) ["description"].ToString(),
-												   ((JsonObject)events) ["start_time"].ToString(),
-												   int.Parse(((JsonObject)events) ["attending_count"].ToString()),
-												   int.Parse(((JsonObject)events) ["declined_count"].ToString()),
-												   int.Parse(((JsonObject)events) ["maybe_count"].ToString()),
-												   int.Parse(((JsonObject)events) ["noreply_count"].ToString()));
-											
-						todaysEvents.Add(theEvent);
-					}
-				}
-				catch(Exception ex) 
-				{
-				}
-				count++;
-			}
-			Global.TodaysEvents= todaysEvents;
-			Intent intent= new Intent(this,typeof(EventListActivity));
-			StartActivity(intent);
-		}
 		public void GetEventList(string token,List<string> allPlacesIds)
 		{
 			DateTime now = DateTime.Now;
@@ -144,45 +107,29 @@ namespace WhereTo_Go
 				{
 					for( int j=0;j<50;j++)
 					{
-						if(((JsonObject)result[j]).ToString().Contains("events"))
-						{
-							JsonObject resultx=(JsonObject)result[j];
-							JsonArray allEvents= (JsonArray)((JsonObject) resultx ["events"])["data"];
-							foreach (var events in allEvents)
+							if(((JsonObject)result[j]).ToString().Contains("events"))
 							{
-							Events theEvent= new Events(((JsonObject)events) ["id"].ToString(),
-															((JsonObject)events) ["name"].ToString(),
-															((JsonObject)events) ["description"].ToString(),
-															((JsonObject)events) ["start_time"].ToString(),
-															int.Parse(((JsonObject)events) ["attending_count"].ToString()),
-															int.Parse(((JsonObject)events) ["declined_count"].ToString()),
-															int.Parse(((JsonObject)events) ["maybe_count"].ToString()),
-															int.Parse(((JsonObject)events) ["noreply_count"].ToString()));
+								JsonObject auxResult=(JsonObject)result[j];
+								JsonArray allEvents= (JsonArray)((JsonObject) auxResult ["events"])["data"];
+								foreach (var events in allEvents)
+								{
+									Events theEvent= new Events(((JsonObject)events) ["id"].ToString(),
+																((JsonObject)events) ["name"].ToString(),
+																((JsonObject)events) ["description"].ToString(),
+																((JsonObject)events) ["start_time"].ToString(),
+																int.Parse(((JsonObject)events) ["attending_count"].ToString()),
+																int.Parse(((JsonObject)events) ["declined_count"].ToString()),
+																int.Parse(((JsonObject)events) ["maybe_count"].ToString()),
+																int.Parse(((JsonObject)events) ["noreply_count"].ToString()));
 
-							todaysEvents.Add(theEvent);
+									todaysEvents.Add(theEvent);
+								}
 							}
-						}
 					}
-//					JsonArray allEvents= (JsonArray)((JsonObject) result ["events"])["data"];
-//
-//					foreach (var events in allEvents)
-//					{
-//						Events theEvent= new Events(((JsonObject)events) ["id"].ToString(),
-//							((JsonObject)events) ["name"].ToString(),
-//							((JsonObject)events) ["description"].ToString(),
-//							((JsonObject)events) ["start_time"].ToString(),
-//							int.Parse(((JsonObject)events) ["attending_count"].ToString()),
-//							int.Parse(((JsonObject)events) ["declined_count"].ToString()),
-//							int.Parse(((JsonObject)events) ["maybe_count"].ToString()),
-//							int.Parse(((JsonObject)events) ["noreply_count"].ToString()));
-//
-//						todaysEvents.Add(theEvent);
-//					}
 				}
 				catch(Exception ex) 
 				{
 				}
-//				count++;
 			}
 			Global.TodaysEvents= todaysEvents;
 			Intent intent= new Intent(this,typeof(EventListActivity));

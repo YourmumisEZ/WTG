@@ -1739,7 +1739,8 @@ containing a value of this type.
         public static final int messenger_button_send_round_shadow=0x7f020055;
         public static final int messenger_button_white_bg_round=0x7f020056;
         public static final int messenger_button_white_bg_selector=0x7f020057;
-        public static final int notification_template_icon_bg=0x7f020058;
+        public static final int notification_template_icon_bg=0x7f020059;
+        public static final int wtg=0x7f020058;
     }
     public static final class id {
         public static final int Text=0x7f0c007a;

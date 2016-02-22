@@ -28,5 +28,6 @@ D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout-port\search.xml
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout-port\eventslist.xml
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout-port\rowview.xml
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\layout-port\filter.xml
+D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\res\drawable\wtg.png
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\obj\Debug\WhereTo_Go.dll.mdb
 D:\VS2015Projects\WhereTo_Go\WhereTo_Go\bin\Debug\WhereTo_Go.dll.mdb

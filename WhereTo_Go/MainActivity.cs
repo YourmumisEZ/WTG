@@ -9,6 +9,7 @@ using System.Linq;
 using Facebook;
 using Android.Preferences;
 using Android.Locations;
+using Android.Net;
 
 namespace WhereTo_Go
 {
@@ -24,6 +25,9 @@ namespace WhereTo_Go
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
+			ConnectivityManager connectivityManager = (ConnectivityManager) GetSystemService(ConnectivityService);
+			NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+
 
 			Button loginButton = FindViewById<Button>(Resource.Id.loginButton);
 			Button filteButton = FindViewById<Button> (Resource.Id.button1);
@@ -33,29 +37,43 @@ namespace WhereTo_Go
 			{
 				Accuracy = Accuracy.Fine
 			};
-		    acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
-			filteButton.Click += (object sender, EventArgs e) =>
-			{
-					Intent intent= new Intent(this,typeof(FilterActivity));
-					StartActivityForResult(intent, 0);
-			};
+			acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
 
-			loginButton.Click += (object sender, EventArgs e) =>
-			{
-				if(!string.IsNullOrEmpty( prefs.GetString("token","")))
-					{
-						Intent intent= new Intent(this,typeof(SearchActivity));
-						StartActivityForResult(intent, 0);
-					}
-				else
-					{
-						auth = Global.LogIn();
+				
+				filteButton.Click += (object sender, EventArgs e) => {
+					Intent intent = new Intent (this, typeof(FilterActivity));
+					StartActivityForResult (intent, 0);
+				};
+
+				loginButton.Click += (object sender, EventArgs e) => {
+				bool isOnline = (activeConnection != null) && activeConnection.IsConnected;
+				bool wifiIsOnline = (connectivityManager.GetNetworkInfo(ConnectivityType.Wifi)).IsConnected;
+				if (isOnline || wifiIsOnline) {
+					
+					if (!string.IsNullOrEmpty (prefs.GetString ("token", ""))) {
+						Intent intent = new Intent (this, typeof(SearchActivity));
+						StartActivityForResult (intent, 0);
+					} else {
+						auth = Global.LogIn ();
 						auth.Completed += auth_Completed;
-						StartActivity(auth.GetUI(this));
+						StartActivity (auth.GetUI (this));
 					}
+				}
+				else 
+				{
+					AlertDialog.Builder alert = new AlertDialog.Builder (this);
+					alert.SetTitle ("Internet connection error");
+					alert.SetMessage ("Turn wifi or mobile data on");
+					alert.SetPositiveButton ("Ok", (senderAlert, args) => {
+
+					});
+					Dialog dialog = alert.Create();
+					dialog.Show();
+				}
 			};
 		
-		}
+			} 
+			
 
 		void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
 		{
@@ -74,14 +92,15 @@ namespace WhereTo_Go
 		protected override void OnResume ()
 		{
 			base.OnResume ();
-			string Provider = acceptableLocationProviders.First();
+			if (acceptableLocationProviders.Count != 0) {
+				string Provider = acceptableLocationProviders.First ();
 
-			if(_locationManager.IsProviderEnabled(Provider))
-			{
-				_locationManager.RequestLocationUpdates (Provider, 2000, 0, this);
-				Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
-				Global.GPSCoords = thisCoords;
+				if (_locationManager.IsProviderEnabled (Provider)) {
+					_locationManager.RequestLocationUpdates (Provider, 2000, 0, this);
+					Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation (Provider).Longitude.ToString (), _locationManager.GetLastKnownLocation (Provider).Latitude.ToString ());
+					Global.GPSCoords = thisCoords;
 
+				}
 			}
 
 		}

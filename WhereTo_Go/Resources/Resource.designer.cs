@@ -1576,8 +1576,11 @@ namespace WhereTo_Go
 			// aapt resource value: 0x7f020057
 			public const int messenger_button_white_bg_selector = 2130837591;
 			
+			// aapt resource value: 0x7f020059
+			public const int notification_template_icon_bg = 2130837593;
+			
 			// aapt resource value: 0x7f020058
-			public const int notification_template_icon_bg = 2130837592;
+			public const int WTG = 2130837592;
 			
 			static Drawable()
 			{

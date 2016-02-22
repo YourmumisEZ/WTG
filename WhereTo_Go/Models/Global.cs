@@ -35,7 +35,7 @@ namespace WhereTo_Go
 		{
 			return new OAuth2Authenticator (
 				clientId: Global.AppID,
-				scope: "publish_actions,user_location,user_about_me",
+				scope: "user_location",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 		} 
@@ -58,26 +58,53 @@ namespace WhereTo_Go
 		}
 		public static string GetLocationID(string token)
 		{
+			try
+			{
 				FacebookClient fb = new FacebookClient (token);
 				JsonObject result = (JsonObject)fb.Get ("me?fields=location", null);
 				return (((JsonObject)result ["location"]) ["id"]).ToString (); 
-
+			}
+			catch(Exception ex){
+				throw new Exception ("GetLocationID exception");
+			}
 		}
 
 		public static Coords GetLongitudeAndLatitude(string token,string id,string localizationSetting)
-		{if (localizationSetting == "facebook") 
+		{
+			try
 			{
-				FacebookClient fb = new FacebookClient (token);
-				string query = id + "?fields=location";
-				JsonObject result = (JsonObject)fb.Get (query, null);
-				Coords coords = new Coords ();
-				coords.Longitude = (((JsonObject)result ["location"]) ["longitude"]).ToString ();
-				coords.Latitutde = (((JsonObject)result ["location"]) ["latitude"]).ToString ();
-				return coords;
-			}
-			return GPSCoords;
-		}
+			if (localizationSetting == "gps") 
+			{
+				return GPSCoords;
 
+			}
+			FacebookClient fb = new FacebookClient (token);
+			string query = id + "?fields=location";
+			JsonObject result = (JsonObject)fb.Get (query, null);
+			Coords coords = new Coords ();
+			coords.Longitude = (((JsonObject)result ["location"]) ["longitude"]).ToString ();
+			coords.Latitutde = (((JsonObject)result ["location"]) ["latitude"]).ToString ();
+			return coords;
+			}
+			catch(Exception ex){
+				throw new Exception ("GetLongitudeAndLatitude exception");
+
+			}
+		}
+		public static void GetMyInfo(string token)
+		{
+			// This uses Facebook Graph API
+			// See https://developers.facebook.com/docs/reference/api/ for more information.
+			FacebookClient fb = new FacebookClient(token);
+			fb.GetTaskAsync("me").ContinueWith(t =>
+				{
+					if (!t.IsFaulted)
+					{
+						var result = (IDictionary<string, object>)t.Result;
+						Console.WriteLine(result);
+					}
+				});
+		}
 
 
 		public static JsonObject GetAllPlaces (string token, Coords coords)

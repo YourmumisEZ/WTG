@@ -31,7 +31,6 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -39,6 +38,7 @@
     <ConsolePause>false</ConsolePause>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -77,6 +77,7 @@
     <Compile Include="EventListActivity.cs" />
     <Compile Include="Models\Helpers\EventListAdapter.cs" />
     <Compile Include="FilterActivity.cs" />
+    <Compile Include="Models\Helpers\LinqExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -98,6 +99,7 @@
     <AndroidResource Include="Resources\layout-port\EventsList.axml" />
     <AndroidResource Include="Resources\layout-port\RowView.axml" />
     <AndroidResource Include="Resources\layout-port\Filter.axml" />
+    <AndroidResource Include="Resources\drawable\WTG.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -117,7 +117,7 @@ namespace WhereTo_Go
 			for(int i=0;i<allPlacesIds.Count;i=i+50)
 			{
 				string ids = allPlacesIds.Skip(i).Take(50).GenerateFBQuery ();
-				string query = string.Format ("{0}&fields=events.fields(id,name,description,start_time,attending_count,declined_count,maybe_count,noreply_count).since({1}).until({2})", ids,dateNow,dateTomorrow);
+				string query = string.Format ("{0}&fields=id,name,events.fields(id,name,description,start_time,attending_count,declined_count,maybe_count,noreply_count).since({1}).until({2})", ids,dateNow,dateTomorrow);
 				JsonObject result=(JsonObject)fb.Get (query, null);
 				try
 				{
@@ -136,7 +136,8 @@ namespace WhereTo_Go
 																int.Parse(((JsonObject)events) ["attending_count"].ToString()),
 																int.Parse(((JsonObject)events) ["declined_count"].ToString()),
 																int.Parse(((JsonObject)events) ["maybe_count"].ToString()),
-																int.Parse(((JsonObject)events) ["noreply_count"].ToString()));
+																int.Parse(((JsonObject)events) ["noreply_count"].ToString()),
+																((JsonObject)auxResult) ["name"].ToString());
 
 									todaysEvents.Add(theEvent);
 								}

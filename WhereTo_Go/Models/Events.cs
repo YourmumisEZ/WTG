@@ -43,7 +43,11 @@ namespace WhereTo_Go
 			get;
 			set;
 		}
-		public Events (string id,string name,string description,string start_time,int attending_Count,int declined_count,int maybe_count,int noreply_count)
+		public string PlaceName {
+			get;
+			set;
+		}
+		public Events (string id,string name,string description,string start_time,int attending_Count,int declined_count,int maybe_count,int noreply_count,string placeName)
 		{
 
 			this.Id = id;
@@ -55,6 +59,7 @@ namespace WhereTo_Go
 			this.Maybe_count = maybe_count;
 			this.Noreply_count = noreply_count;
 			this.TotalCount = attending_Count + declined_count + maybe_count + noreply_count;
+			this.PlaceName = placeName;
 		}
 	}
 }

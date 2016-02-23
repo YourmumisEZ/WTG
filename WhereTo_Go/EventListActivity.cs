@@ -31,7 +31,7 @@ namespace WhereTo_Go
 		public void SetUpLabel()
 		{
 			DateTime now = DateTime.Now;
-			string dateNow = string.Format ("{0}-{1}-{2}",now.Year,now.Month,now.Day);
+			string dateNow = string.Format ("{0}/{1}/{2}",now.Day,now.Month,now.Year);
 			TextView label = FindViewById<TextView> (Resource.Id.textView1);
 			label.Text = string.Format ("Events for {0} :", dateNow);
 		}

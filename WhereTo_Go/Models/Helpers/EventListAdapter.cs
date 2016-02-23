@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-
 namespace WhereTo_Go
 {
 	public class EventListAdapter: BaseAdapter<Events> {
@@ -42,7 +41,7 @@ namespace WhereTo_Go
 			if (view == null) // no view to re-use, create new
 				view = context.LayoutInflater.Inflate(Resource.Layout.RowView, null);
 			view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Name.ToString();
-			view.FindViewById<TextView>(Resource.Id.Text2).Text = string.Format("{0} confirmed, {1} intereseted",item.Attending_count.ToString(),item.Maybe_count.ToString());
+			view.FindViewById<TextView>(Resource.Id.Text2).Text = string.Format("Place: {0}{1}Users Confirmed: {2}{3}Users Interested: {4}{5}Start time: {6}",item.PlaceName,System.Environment.NewLine,item.Attending_count.ToString(),System.Environment.NewLine,item.Maybe_count.ToString(),System.Environment.NewLine,item.Start_time);
 			return view;
 		}
 	}

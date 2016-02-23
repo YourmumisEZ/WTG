@@ -91,16 +91,25 @@ namespace WhereTo_Go
 		}
 		protected override void OnResume ()
 		{
-			base.OnResume ();
-			if (acceptableLocationProviders.Count != 0) {
-				string Provider = acceptableLocationProviders.First ();
+			try
+			{
+				base.OnResume ();
+				if (acceptableLocationProviders.Count != 0) 
+				{
+					string Provider = acceptableLocationProviders.First ();
 
-				if (_locationManager.IsProviderEnabled (Provider)) {
-					_locationManager.RequestLocationUpdates (Provider, 2000, 0, this);
-					Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation (Provider).Longitude.ToString (), _locationManager.GetLastKnownLocation (Provider).Latitude.ToString ());
-					Global.GPSCoords = thisCoords;
+					if (_locationManager.IsProviderEnabled (Provider)) 
+					{
+						_locationManager.RequestLocationUpdates (Provider, 2000, 0, this);
+						Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation (Provider).Longitude.ToString (), _locationManager.GetLastKnownLocation (Provider).Latitude.ToString ());
+						Global.GPSCoords = thisCoords;
 
+					}
 				}
+			}
+			catch(Exception ex) 
+			{
+				
 			}
 
 		}
@@ -108,10 +117,16 @@ namespace WhereTo_Go
 
 		public void OnLocationChanged (Location location)
 		{
-			string Provider = acceptableLocationProviders.First();
-			Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
-			Global.GPSCoords = thisCoords;
-		}
+			try
+			{
+				string Provider = acceptableLocationProviders.First();
+				Coords thisCoords = new Coords (_locationManager.GetLastKnownLocation(Provider).Longitude.ToString(),_locationManager.GetLastKnownLocation(Provider).Latitude.ToString());
+				Global.GPSCoords = thisCoords;
+			}
+			catch(Exception ex) 
+			{
+			}
+			}
 		public void OnProviderDisabled (string provider)
 		{
 	

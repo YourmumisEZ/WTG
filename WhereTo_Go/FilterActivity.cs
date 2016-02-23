@@ -38,6 +38,12 @@ namespace WhereTo_Go
 			}
 			radio_gps.Click += RadioButtonClick;
 			radio_fb.Click += RadioButtonClick;
+
+			Button backButton = FindViewById<Button>(Resource.Id.button1);
+			backButton.Click += (object sender, EventArgs e) => {
+				Intent intent = new Intent (this, typeof(MainActivity));
+				StartActivityForResult (intent, 0);
+			};
 		}
 		private void RadioButtonClick (object sender, EventArgs e)
 		{

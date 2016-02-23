@@ -78,6 +78,22 @@ namespace WhereTo_Go
 			else 
 			{
 				 locationId = Global.GetLocationID (token);
+				 if(locationId=="Error")
+					{
+						AlertDialog.Builder alert = new AlertDialog.Builder (this);
+						alert.SetTitle ("Localization Error");
+						alert.SetMessage ("You have not set the city you live in, on facebook. Either set it or use GPS localization");
+						alert.SetPositiveButton ("Ok", (senderAlert, args) => 
+							{
+								Intent intent = new Intent (this, typeof(MainActivity));
+								StartActivityForResult (intent, 0);
+							}
+						);
+						Dialog dialog = alert.Create ();
+						dialog.Show ();
+						return;
+					}
+
 				 coords = Global.GetLongitudeAndLatitude (token, locationId,localizationSetting);
 			}
 			JsonObject allPlaces = Global.GetAllPlaces (token, coords);

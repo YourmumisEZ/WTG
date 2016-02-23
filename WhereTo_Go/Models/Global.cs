@@ -65,7 +65,7 @@ namespace WhereTo_Go
 				return (((JsonObject)result ["location"]) ["id"]).ToString (); 
 			}
 			catch(Exception ex){
-				throw new Exception ("GetLocationID exception");
+				return "Error";
 			}
 		}
 

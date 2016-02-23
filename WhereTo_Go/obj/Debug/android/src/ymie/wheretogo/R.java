@@ -1769,7 +1769,7 @@ containing a value of this type.
         public static final int bottom=0x7f0c0027;
         public static final int box_count=0x7f0c0024;
         public static final int button=0x7f0c0025;
-        public static final int button1=0x7f0c006b;
+        public static final int button1=0x7f0c006a;
         public static final int buttonPanel=0x7f0c0045;
         public static final int cancel_action=0x7f0c006e;
         public static final int center=0x7f0c002a;
@@ -1809,7 +1809,7 @@ containing a value of this type.
         public static final int listMode=0x7f0c0009;
         public static final int listView1=0x7f0c0066;
         public static final int list_item=0x7f0c0039;
-        public static final int loginButton=0x7f0c006a;
+        public static final int loginButton=0x7f0c006b;
         public static final int media_actions=0x7f0c0070;
         public static final int messenger_send_button=0x7f0c006c;
         public static final int middle=0x7f0c001a;

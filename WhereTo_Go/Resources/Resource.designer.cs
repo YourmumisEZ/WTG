@@ -1673,8 +1673,8 @@ namespace WhereTo_Go
 			// aapt resource value: 0x7f0c0025
 			public const int button = 2131492901;
 			
-			// aapt resource value: 0x7f0c006b
-			public const int button1 = 2131492971;
+			// aapt resource value: 0x7f0c006a
+			public const int button1 = 2131492970;
 			
 			// aapt resource value: 0x7f0c0045
 			public const int buttonPanel = 2131492933;
@@ -1793,8 +1793,8 @@ namespace WhereTo_Go
 			// aapt resource value: 0x7f0c0039
 			public const int list_item = 2131492921;
 			
-			// aapt resource value: 0x7f0c006a
-			public const int loginButton = 2131492970;
+			// aapt resource value: 0x7f0c006b
+			public const int loginButton = 2131492971;
 			
 			// aapt resource value: 0x7f0c0070
 			public const int media_actions = 2131492976;

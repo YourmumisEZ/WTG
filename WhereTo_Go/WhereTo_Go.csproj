@@ -100,6 +100,7 @@
     <AndroidResource Include="Resources\layout-port\RowView.axml" />
     <AndroidResource Include="Resources\layout-port\Filter.axml" />
     <AndroidResource Include="Resources\drawable\WTG.png" />
+    <AndroidResource Include="Resources\layout-land\Filter.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

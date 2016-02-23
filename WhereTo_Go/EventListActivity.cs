@@ -35,6 +35,12 @@ namespace WhereTo_Go
 			TextView label = FindViewById<TextView> (Resource.Id.textView1);
 			label.Text = string.Format ("Events for {0} :", dateNow);
 		}
+		public override void OnBackPressed()
+		{
+			Intent intent = new Intent (this, typeof(MainActivity));
+			StartActivityForResult (intent, 0);
+		
+		}
 
 		protected void OnListItemClick(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
 		{
